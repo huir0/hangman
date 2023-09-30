@@ -1,4 +1,4 @@
-const End = ({status, selectedWord, reset}) => {
+const Result = ({status, selectedWord, reset}) => {
     if (!status) return null;
 
     return (
@@ -12,4 +12,4 @@ const End = ({status, selectedWord, reset}) => {
     )
 }
 
-export default End;
+export default Result;

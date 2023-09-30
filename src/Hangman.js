@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Hanging from './Hanging';
-import End from './End';
+import Result from './Result';
 import './App.css';
 
 export default function Hangman() {
@@ -124,7 +124,7 @@ export default function Hangman() {
             </div>
             <Hanging wrong = {wrong.length} />
             <button onClick={()=> reset()}>reset</button>
-            <End status={status} selectedWord={selectedWord} reset={reset} />
+            <Result status={status} selectedWord={selectedWord} reset={reset} />
         </div>
     )
 
