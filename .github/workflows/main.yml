@@ -33,6 +33,12 @@ jobs:
         run: |
           docker push 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest
 
+      - name: Make key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/key.pem
+          chmod 600 ~/.ssh/key.pem
+      
       - name: Deploy Docker container to EC2
         run: |
-          ssh -i ${{ secrets.EC2_SSH_KEY }} ubuntu@13.125.143.54 "docker pull 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest && docker run -d -p 80:80 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest"
+          ssh -i ~/.ssh/key.pem ubuntu@13.125.143.54 "docker pull 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest && docker run -d -p 80:80 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest"
