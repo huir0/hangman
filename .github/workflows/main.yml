@@ -35,4 +35,4 @@ jobs:
 
       - name: Deploy to ECS
         run: |
-          aws ecs update-service --cluster hangman --service hangman --force-new-deployment
+          aws ecs update-service --cluster hangman --service Hangman --force-new-deployment
