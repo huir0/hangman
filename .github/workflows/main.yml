@@ -1,4 +1,4 @@
-name: Deploy to ECS
+name: Deploy to EC2
 
 on:
   push: 
@@ -33,6 +33,12 @@ jobs:
         run: |
           docker push 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest
 
-      - name: Deploy to ECS
+      - name: Make key
         run: |
-          aws ecs update-service --cluster hangman --service Hangman --force-new-deployment
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/key.pem
+          chmod 600 ~/.ssh/key.pem
+      
+      - name: Deploy Docker container to EC2
+        run: |
+          ssh -i ~/.ssh/key.pem ubuntu@13.125.143.54 "docker pull 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest && docker run -d -p 80:80 272440905989.dkr.ecr.ap-northeast-2.amazonaws.com/hangman:latest"
