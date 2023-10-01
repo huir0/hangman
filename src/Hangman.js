@@ -75,7 +75,7 @@ export default function Hangman() {
         setCorrects([]);
         setWrong([]);
         setStatus('');
-        setSelectedWord('');
+        if (selectedCategory ==='') setWordlist([]);
     }
 
     useEffect(reset, []);
@@ -87,6 +87,10 @@ export default function Hangman() {
     }, [selectedCategory]);
 
     useEffect(() => {
+        if (selectedWord) setSelectedCategory('');
+    },[selectedWord]);
+
+    useEffect(() => {
         if (corrects.length && selectedWord.split('').every(letter => corrects.includes(letter))) setStatus('성공');
     },[corrects]);
 
@@ -96,7 +100,7 @@ export default function Hangman() {
 
     return (
         <div>
-            <p>주제를 고르세요</p>
+            <p> 주제를 고르세요 </p>
             <div>
                 {categories.map(category => (
                     <button onClick={() => handleCategory(category)}>
@@ -114,16 +118,24 @@ export default function Hangman() {
             <p className='underbar'>{underBar}</p>
             <div>
                 {alphabets.map((letter, index) => 
-                <button 
-                    key={index} 
-                    disabled={corrects.includes(letter) || wrong.includes(letter)} 
-                    onClick={() => onGuess(letter)}>
-                    {letter}
-                    </button>
+                {
+                    if (corrects.includes(letter)) return null;
+                    return (
+                        <button 
+                            key={index} 
+                            disabled={selectedWord==='' || wrong.includes(letter)} 
+                            onClick={() => onGuess(letter)}
+                            style={{
+                                backgroundColor: wrong.includes(letter) ? 'red' : '',
+                                color: wrong.includes(letter) ? 'white' : 'black',
+                            }}>
+                            {letter}
+                        </button>
+                        )
+                    }
                 )}
             </div>
             <Hanging wrong = {wrong.length} />
-            <button onClick={()=> reset()}>reset</button>
             <Result status={status} selectedWord={selectedWord} reset={reset} />
         </div>
     )
