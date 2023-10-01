@@ -7,3 +7,24 @@ line {
   stroke: black;
   stroke-width: 4;
 }
+
+.game {
+  text-align: center;
+}
+
+.hanging {
+  margin: 2rem;
+}
+
+.word {
+  padding-top: 10px;
+}
+
+button {
+  margin: 3px;
+}
+
+.underbar {
+  font-size: 30px;
+  font-weight: bold;
+}

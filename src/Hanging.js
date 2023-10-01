@@ -1,6 +1,6 @@
 const Hanging = ({ wrong }) => {
     return (
-        <svg height="400" width="400">
+        <svg height="330" width="400">
             {/** 머리 */}
             {wrong > 2 && (
                 <g id="head">

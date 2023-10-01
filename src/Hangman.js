@@ -8,9 +8,9 @@ export default function Hangman() {
     const categories = ['동물','과일','영화','게임','음악'];
     const animals = ['hedgehog','elephant','jaguar','alligator','armadillo','donkey','dolphin','hummingbird','kangaroo','pelican','penguin','panther','wallaby'];
     const fruits = ['orange','grape','strawberry','watermelon','melon','apple','cherry','blueberry','coconut','durian','peach','guava','lemon','mango','mandarin','pineapple','plum'];
-    const movies = ['gataka','iron man','the mask','hulk','truman show','dune','contact','frequency','alien','the host','harry potter','eternals','casablanca'];
-    const games = ['pokemon','starfield','unturned','minecraft','rust','warframe','dont starve','terraria','payday','dayz','the sims','elden ring','biohazard','overwatch','rimworld','new world','stellaris','super mario','valheim','factorio','fallout','titanfall','brawlhalla'];
-    const songs = ['lady gaga','all my life','september','unholy','shape of you','vampire','memories','flowers','uptown funk','youth','im yours','stronger','abcdefu','strings','bad guy','blank space','smoke','umbrella','ditto','unforgiven','summer','underwater','new jeans'];
+    const movies = ['gataka','godfather','hulk','dune','contact','frequency','alien','inception','interstellar','eternals','casablanca','seven','psycho','pianist','gladiator','oppenheimer'];
+    const games = ['pokemon','starfield','unturned','minecraft','rust','warframe','dont starve','terraria','payday','dayz','sims','biohazard','overwatch','rimworld','stellaris','grounded','valheim','factorio','fallout','titanfall','brawlhalla'];
+    const songs = ['hallelujah','rush','september','unholy','wonderwall','vampire','memories','flowers','bloom','youth','wild','stronger','abcdefu','strings','lover','anyone','smoke','umbrella','ditto','unforgiven','summer','underwater','infinity'];
     
     const [wordlist, setWordlist] = useState([]);
     const [selectedWord, setSelectedWord] = useState('');
@@ -22,7 +22,7 @@ export default function Hangman() {
     const underBar = 
         selectedWord
             .split('')
-            .map(letter => corrects.includes(letter) ? letter : '_')
+            .map(letter => corrects.includes(letter)? letter : '_')
             .join(" ");
 
     const onGuess = letter => {
@@ -99,22 +99,27 @@ export default function Hangman() {
     },[wrong]);
 
     return (
-        <div>
+        <div className='game'>
             <p> 주제를 고르세요 </p>
-            <div>
+            <div className='category'>
                 {categories.map(category => (
                     <button onClick={() => handleCategory(category)}>
                         {category}
                     </button>
                 ))}
             </div>
-            <div>
+            <div className='word'>
                 {wordlist.length > 0 && selectedWord === '' && wordlist.map(word => (
                     <button onClick={() => handleWord(word)}>
                         {word}
                     </button>
                 ))}
             </div>
+
+            <div className='hanging'>
+                <Hanging wrong = {wrong.length} />
+            </div>
+
             <p className='underbar'>{underBar}</p>
             <div>
                 {alphabets.map((letter, index) => 
@@ -135,7 +140,6 @@ export default function Hangman() {
                     }
                 )}
             </div>
-            <Hanging wrong = {wrong.length} />
             <Result status={status} selectedWord={selectedWord} reset={reset} />
         </div>
     )
