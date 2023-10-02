@@ -22,6 +22,14 @@ line {
 
 button {
   margin: 3px;
+  font-size: 1.2rem;
+}
+
+.letterButton {
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .underbar {
